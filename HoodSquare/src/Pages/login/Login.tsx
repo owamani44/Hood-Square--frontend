@@ -1,5 +1,5 @@
-import "./Login.scss"
-import logo from '../../assets/ranzo-cropped.png';
+import "./Login.css"
+import logo from '../../assets/hood.png';
 import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { myAxios } from "../../api"
@@ -61,7 +61,8 @@ function Login() {
                        onChange={handleInput}  
                        placeholder={"Password"}/>
                         <span className="showPassword" onClick={()=>setVisible(!visible)}>
-                          {visible? <VisibilityIconOutlined/> : <VisibilityOffIconOutlined/>}
+                          {visible? (<><VisibilityIconOutlined/> Hide password</>) :
+                            (<><VisibilityOffIconOutlined/> Show password</>) }
                         </span>
                        
                        </h4>  
@@ -70,7 +71,7 @@ function Login() {
         </form>
       </div>
       <div className="footer">
-        <p>Copyright © {currentYear} Ranzo. All rights reserved.</p>
+        <p>Copyright © {currentYear} Hood Square. All rights reserved.</p>
       </div>
     </div>
   )

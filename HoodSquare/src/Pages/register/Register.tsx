@@ -1,10 +1,10 @@
-import "./register.scss"
+import "./register.css"
 import { useState } from "react";
 import { Link } from "react-router";
-import logo  from '../../assets/ranzo-cropped.png';
 import { myAxios } from "../../api";
 import VisibilityOffIconOutlined from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityIconOutlined from '@mui/icons-material/VisibilityOutlined';
+import logo from '../../assets/hood.png';
 
 
 const Register = () => {
@@ -12,10 +12,9 @@ const Register = () => {
     const [registerForm, setRegisterForm] = useState({
              firstName: "",
               lastName: "", 
-              roles: "",
               password: "" 
              })
-   const [visible,setVisible]  =useState("true");        
+   const [visible,setVisible]  =useState(true);        
            const handleInput = (event:React.ChangeEvent<HTMLInputElement| HTMLSelectElement >)=>{
                  setRegisterForm({...registerForm, [event.target.name]: event.target.value})
            }
@@ -34,7 +33,7 @@ const Register = () => {
         <div className="centre">
         <form  onSubmit={handleSubmit} className="registerForm">
             <div className="logoContainer">
-              <img src={logo} alt="Ranzo Logo" />
+             <img src={logo} alt="Hood Square Logo" />
             </div>
             
           <h4>First Name
@@ -55,18 +54,7 @@ const Register = () => {
                value={registerForm.lastName} 
                placeholder={"Last Name"}/>
             </h4>
-            <h4>Role
-             <br/> 
-             <select
-                value={registerForm.roles}
-               onChange={handleInput} 
-               name="roles" 
-               >
-                    <option value="MANAGER">MANAGER</option>
-                    <option value="VET">VET</option>
-                    <option value="RANCH OPERATOR">RANCH OPERATOR</option>
-                </select>
-            </h4>
+           
           <h4 className="passwordField">Password 
             <br/> 
             <input
@@ -76,7 +64,9 @@ const Register = () => {
              onChange={handleInput}  
              placeholder={"Password"}/>
               <span className="showPassword" onClick={()=>setVisible(!visible)}>
-                {visible? <VisibilityIconOutlined/> : <VisibilityOffIconOutlined/>}
+                {visible? (<><VisibilityIconOutlined/> Hide password</>) :
+                (<><VisibilityOffIconOutlined/> Show password</>) }
+                
               </span>
              
              </h4> 
@@ -85,7 +75,7 @@ const Register = () => {
         </form>
       </div>
       <div className="footer">
-        <p>Copyright © {currentYear} Ranzo. All rights reserved.</p>
+        <p>Copyright © {currentYear} Hood Square. All rights reserved.</p>
       </div>
       
     </div>
