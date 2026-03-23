@@ -7,6 +7,7 @@ import Skills from "./Pages/services/Skills";
 import Alerts from "./Pages/alert/Alerts";
 import Profile from "./Pages/profile/Profile";
 import LostAndFound from "./Pages/lostAndFound/LostAndFound";
+import Connect from "./Pages/connect/Connect";
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
           <Route index element={<Login/>}/>
           <Route path="signup" element={<Register/>}/>
           <Route path="chats" element={<Chats/>}/>
+          <Route path="/connect" element={<Connect/>}/>
           <Route path="services" element={<Skills/>}/>
           <Route path="lost" element={<LostAndFound/>}/>
           <Route path="alerts" element={<Alerts/>}/>

@@ -22,7 +22,7 @@
 
 .skills-main {
   flex: 1;
-  max-width: 1200px;
+  max-width: 1500px;
   width: 100%;
   margin: 0 auto;
   padding: 40px 24px 80px;
@@ -85,6 +85,7 @@
     Card Grid 
 .skills-grid {
   display: grid;
+  padding: 20px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
@@ -101,6 +102,7 @@
   box-shadow: var(--shadow);
   transition: transform 0.2s, box-shadow 0.2s;
   animation: cardIn 0.4s ease both;
+  margin-top: 5px;
 }
 
 @keyframes cardIn {
