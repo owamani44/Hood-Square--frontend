@@ -23,7 +23,7 @@ function Login() {
                .then(res=>{
                  console.log("Log in successfull", res.data)
                   localStorage.setItem("token", res.data.token);
-                 navigate("/home");
+                 navigate("/chats");
                })
                .catch(err=>{
                   if (err.response?.status === 401) {

@@ -3,7 +3,7 @@ import type { IMessage, StompSubscription } from '@stomp/stompjs';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import type { ChatMessage } from '../types/chat.types';
-
+import { authService } from '../../services/auth.services.ts';
 type ConnectionStatus = 'idle' | 'connecting' | 'connected' | 'error';
 
 interface UseChatReturn {
@@ -36,6 +36,9 @@ export const useChat = (): UseChatReturn => {
     const client = new Client({
       webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
       reconnectDelay: 0,
+       connectHeaders: {
+      Authorization: `Bearer ${authService.getToken()}`, 
+      },
 
       onConnect: () => {
         setStatus('connected');

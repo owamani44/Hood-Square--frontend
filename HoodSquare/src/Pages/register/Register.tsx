@@ -10,8 +10,9 @@ import logo from '../../assets/hood.png';
 const Register = () => {
     const currentYear = new Date().getFullYear();
     const [registerForm, setRegisterForm] = useState({
-             firstName: "",
-              lastName: "", 
+             fullName: "",
+              username: "",
+              phoneNumber:"", 
               password: "" 
              })
    const [visible,setVisible]  =useState(true);        
@@ -36,23 +37,33 @@ const Register = () => {
              <img src={logo} alt="Hood Square Logo" />
             </div>
             
-          <h4>First Name
+          <h4>Full Name
              <br/> 
              <input
-              name="firstName"
+              name="fullName"
               type="text"
                onChange={handleInput} 
-               value={registerForm.firstName} 
-               placeholder={"First Name"}/>
+               value={registerForm.fullName} 
+               placeholder={"Full Name"}/>
             </h4>
-            <h4>Last Name
+
+            <h4>Tel.
              <br/> 
              <input
-              name="lastName"
+              name="phoneNumber"
+              type="tel"
+               onChange={handleInput} 
+               value={registerForm.phoneNumber} 
+               placeholder={"Phone Number"}/>
+            </h4>
+            <h4>Username
+             <br/> 
+             <input
+              name="username"
               type="text"
                onChange={handleInput} 
-               value={registerForm.lastName} 
-               placeholder={"Last Name"}/>
+               value={registerForm.username} 
+               placeholder={"Enter your desired username"}/>
             </h4>
            
           <h4 className="passwordField">Password 
