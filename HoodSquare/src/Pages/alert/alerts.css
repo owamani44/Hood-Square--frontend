@@ -1,6 +1,4 @@
 
-
-/* ─── Variables ─────────────────────────────────────────────── */
 :root {
   --al-bg:        #fdfcfb;
   --al-surface:   #ffffff;
@@ -14,7 +12,6 @@
   --al-radius:    10px;
 }
 
-/* ─── Page ───────────────────────────────────────────────────── */
 .al-page {
   display: flex;
   flex-direction: column;
@@ -32,7 +29,6 @@
   box-sizing: border-box;
 }
 
-/* ─── Hero ───────────────────────────────────────────────────── */
 .al-hero {
   display: flex;
   align-items: flex-end;
@@ -54,10 +50,8 @@
 }
 
 .al-hero__title {
-  font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 800;
-  text-transform: uppercase;
+  font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0 0 10px;
   line-height: 0.95;
@@ -77,7 +71,6 @@
   color: #fff;
   border: none;
   padding: 13px 28px;
-  font-family: 'Barlow Condensed', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -93,14 +86,14 @@
   transform: translateY(-2px);
 }
 
-/* ─── Grid ───────────────────────────────────────────────────── */
+
 .al-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
-/* ─── Alert Card ─────────────────────────────────────────────── */
+
 .al-card {
   background: var(--al-surface);
   border: 1px solid var(--al-border);
@@ -161,7 +154,6 @@
 }
 
 .al-card__location {
-  font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -182,12 +174,11 @@
   margin: 0;
   line-height: 1.6;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* ─── Skeleton ───────────────────────────────────────────────── */
+
 .al-card--skeleton {
   height: 260px;
   background: linear-gradient(90deg, #f5f0ea 25%, #ede8e0 50%, #f5f0ea 75%);
@@ -205,7 +196,6 @@
   100% { background-position: -200% 0; }
 }
 
-/* ─── States ─────────────────────────────────────────────────── */
 .al-empty {
   text-align: center;
   padding: 80px 24px;
@@ -224,7 +214,6 @@
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Barlow', sans-serif;
   text-decoration: underline;
 }
 
@@ -238,7 +227,6 @@
   font-size: 0.9rem;
 }
 
-/* ─── Backdrop & Modal ───────────────────────────────────────── */
 .al-backdrop {
   position: fixed;
   inset: 0;
@@ -281,7 +269,6 @@
 }
 
 .al-modal__header h2 {
-  font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.7rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -304,7 +291,6 @@
   background: var(--al-border);
 }
 
-/* ─── Form ───────────────────────────────────────────────────── */
 .al-form {
   display: flex;
   flex-direction: column;
@@ -330,7 +316,6 @@
   border: 1.5px solid var(--al-border);
   border-radius: 6px;
   padding: 10px 14px;
-  font-family: 'Barlow', sans-serif;
   font-size: 0.94rem;
   color: var(--al-ink);
   background: var(--al-bg);
@@ -389,7 +374,6 @@
   border: none;
   padding: 13px;
   border-radius: var(--al-radius);
-  font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -409,7 +393,6 @@
   cursor: not-allowed;
 }
 
-/* ─── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .al-hero {
     flex-direction: column;

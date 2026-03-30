@@ -4,7 +4,7 @@ import {useSkills} from './hooks/useSkills';
 import type { CreateSkillRequest } from './types/skill.types';
 import './skills.css';
 
-// ─── Avatar color helper (reuse same logic as chat) ──────────
+
 const COLORS = ['#e07a5f', '#3d405b', '#81b29a', '#f2cc8f', '#118ab2', '#06d6a0'];
 const avatarColor = (name: string) => {
   let hash = 0;
@@ -12,7 +12,6 @@ const avatarColor = (name: string) => {
   return COLORS[Math.abs(hash) % COLORS.length];
 };
 
-// ─── Skill Card ───────────────────────────────────────────────
 interface SkillCardProps {
   id: number;
   username: string;
@@ -46,7 +45,7 @@ const SkillCard = ({ username, skillName, description, amount, index }: SkillCar
   </article>
 );
 
-// ─── Add Skill Form ───────────────────────────────────────────
+
 interface AddSkillFormProps {
   onClose: () => void;
   onSubmit: (skill: CreateSkillRequest) => Promise<boolean>;
@@ -161,7 +160,7 @@ const Skills = () => {
             <p className="skills-hero__label">HoodSquare Marketplace</p>
             <h3 className="skills-hero__title">Skills &amp; Services</h3>
             <p className="skills-hero__sub">
-              Discover talent in your community — or offer your own.
+              Discover talent and services in your community or offer your own.
             </p>
           </div>
           <button className="skills-hero__btn" onClick={() => setShowForm(true)}>

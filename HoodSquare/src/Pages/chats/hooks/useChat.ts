@@ -1,9 +1,14 @@
 import { useState, useRef, useCallback } from 'react';
-import type { IMessage, StompSubscription } from '@stomp/stompjs';
 import { Client } from '@stomp/stompjs';
+import type { IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import type { ChatMessage } from '../types/chat.types';
-import { authService } from '../../services/auth.services.ts';
+
+
+const getToken = () => localStorage.getItem('token');
+
+const WS_URL = import.meta.env.VITE_WS_URL ?? 'http://localhost:8080/ws';
+
 type ConnectionStatus = 'idle' | 'connecting' | 'connected' | 'error';
 
 interface UseChatReturn {
@@ -16,10 +21,10 @@ interface UseChatReturn {
 
 export const useChat = (): UseChatReturn => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [status, setStatus] = useState<ConnectionStatus>('idle');
+  const [status, setStatus]     = useState<ConnectionStatus>('idle');
 
-  const clientRef = useRef<Client | null>(null);
-  const usernameRef = useRef<string>('');
+  const clientRef       = useRef<Client | null>(null);
+  const usernameRef     = useRef<string>('');
   const subscriptionRef = useRef<StompSubscription | null>(null);
 
   const onMessageReceived = useCallback((payload: IMessage) => {
@@ -33,11 +38,15 @@ export const useChat = (): UseChatReturn => {
     usernameRef.current = username.trim();
     setStatus('connecting');
 
+    const token = getToken();
+
     const client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/ws'),
+      webSocketFactory: () => new SockJS(WS_URL),
       reconnectDelay: 0,
-       connectHeaders: {
-      Authorization: `Bearer ${authService.getToken()}`, 
+
+      
+      connectHeaders: {
+        Authorization: `Bearer ${token}`,
       },
 
       onConnect: () => {
@@ -51,16 +60,12 @@ export const useChat = (): UseChatReturn => {
         client.publish({
           destination: '/app/chat.addUser',
           body: JSON.stringify({ sender: usernameRef.current, type: 'JOIN' }),
+          headers: { Authorization: `Bearer ${token}` },
         });
       },
 
-      onStompError: () => {
-        setStatus('error');
-      },
-
-      onDisconnect: () => {
-        setStatus('idle');
-      },
+      onStompError: () => setStatus('error'),
+      onDisconnect:  () => setStatus('idle'),
     });
 
     client.activate();
@@ -71,15 +76,14 @@ export const useChat = (): UseChatReturn => {
     const trimmed = content.trim();
     if (!trimmed || !clientRef.current?.connected) return;
 
-    const message: ChatMessage = {
-      sender: usernameRef.current,
-      content: trimmed,
-      type: 'CHAT',
-    };
-
     clientRef.current.publish({
       destination: '/app/chat.sendMessage',
-      body: JSON.stringify(message),
+      body: JSON.stringify({
+        sender: usernameRef.current,
+        content: trimmed,
+        type: 'CHAT',
+      }),
+      headers: { Authorization: `Bearer ${getToken() ?? ''}` },
     });
   }, []);
 

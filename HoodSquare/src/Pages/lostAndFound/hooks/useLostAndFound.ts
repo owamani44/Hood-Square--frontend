@@ -1,40 +1,35 @@
 import { useState, useEffect, useCallback } from 'react';
-import type {
-  LostResponseDTO,
-  ClaimRequestDTO,
-  ClaimResponseDTO,
-} from '../types/lost.types';
-
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
+import type { LostResponseDTO, ClaimRequestDTO, ClaimResponseDTO } from '../types/lost.types';
+import { myAxios } from '../../../api';
 
 interface UseLostAndFoundReturn {
   items: LostResponseDTO[];
+  claims: ClaimResponseDTO[]; 
   loading: boolean;
   error: string | null;
   submitting: boolean;
-  claiming: string | null;          // claimNumber currently being claimed
+  claiming: string | null;
   postItem: (message: string, image: File | null) => Promise<boolean>;
   claimItem: (dto: ClaimRequestDTO) => Promise<ClaimResponseDTO | null>;
   refresh: () => void;
 }
 
 export const useLostAndFound = (): UseLostAndFoundReturn => {
-  const [items, setItems] = useState<LostResponseDTO[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [items, setItems]           = useState<LostResponseDTO[]>([]);
+  const [claims, setClaims]         = useState<ClaimResponseDTO[]>([]);
+  const [loading, setLoading]       = useState(true);
+  const [error, setError]           = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [claiming, setClaiming] = useState<string | null>(null);
+  const [claiming, setClaiming]     = useState<string | null>(null);
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/lost`);
-      if (!res.ok) throw new Error(`Server error: ${res.status}`);
-      const data: LostResponseDTO[] = await res.json();
+      const { data } = await myAxios.get<LostResponseDTO[]>('/lost');
       setItems(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load items.');
+    } catch (err: any) {
+      setError(err.response?.data?.message ?? 'Failed to load items.');
     } finally {
       setLoading(false);
     }
@@ -42,9 +37,21 @@ export const useLostAndFound = (): UseLostAndFoundReturn => {
 
   useEffect(() => { fetchItems(); }, [fetchItems]);
 
-  // ── POST lost item as multipart/form-data ──────────────────
-  // Controller uses @ModelAttribute LostRequestDTO + @RequestParam MultipartFile
-  // so we send message as a form field and image as a file part
+  const fetchClaims = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await myAxios.get<ClaimResponseDTO[]>('/claim');
+      setClaims(data);
+    } catch (err: any) {
+      setError(err.response?.data?.message ?? 'Failed to load claims.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { fetchClaims(); }, [fetchClaims]);
+
   const postItem = async (message: string, image: File | null): Promise<boolean> => {
     setSubmitting(true);
     setError(null);
@@ -53,52 +60,38 @@ export const useLostAndFound = (): UseLostAndFoundReturn => {
       formData.append('message', message);
       if (image) formData.append('image', image);
 
-      const res = await fetch(`${BASE_URL}/lost`, {
-        method: 'POST',
-        // Do NOT set Content-Type header — browser sets it with boundary automatically
-        body: formData,
+      const { data } = await myAxios.post<LostResponseDTO>('/lost', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      if (!res.ok) throw new Error(`Server error: ${res.status}`);
-      const created: LostResponseDTO = await res.json();
-      setItems((prev) => [created, ...prev]);
+      setItems((prev) => [data, ...prev]);
       return true;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to post item.');
+    } catch (err: any) {
+      setError(err.response?.data?.message ?? 'Failed to post item.');
       return false;
     } finally {
       setSubmitting(false);
     }
   };
 
-  // ── Claim a lost item ──────────────────────────────────────
   const claimItem = async (dto: ClaimRequestDTO): Promise<ClaimResponseDTO | null> => {
-    setClaiming(dto.claimNumber);
-    setError(null);
+  setClaiming(dto.claimNumber);
+  setError(null);
     try {
-      const res = await fetch(`${BASE_URL}/claim`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dto),
-      });
+      const { data } = await myAxios.post<ClaimResponseDTO>('/claim', dto);
+      setClaims((prev) => [data, ...prev]);
+      
+      await fetchItems();
+      await fetchClaims();
 
-      if (!res.ok) throw new Error(`Server error: ${res.status}`);
-      const result: ClaimResponseDTO = await res.json();
-
-      // Update the local item to reflect claimed = true
-      setItems((prev) =>
-        prev.map((item) =>
-          item.claimNumber === dto.claimNumber ? { ...item, claimed: true } : item
-        )
-      );
-      return result;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to claim item.');
+      return data;
+    } catch (err: any) {
+      setError(err.response?.data?.message ?? 'Failed to claim item.');
       return null;
     } finally {
       setClaiming(null);
     }
   };
 
-  return { items, loading, error, submitting, claiming, postItem, claimItem, refresh: fetchItems };
+  return { items,claims, loading, error, submitting, claiming, postItem, claimItem, refresh: fetchItems };
 };

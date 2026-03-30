@@ -13,6 +13,7 @@ export const myAxios = axios.create({
 myAxios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+    console.log("Interceptor firing, token:", token ? "present" : "null"); 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,15 +29,11 @@ myAxios.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 401) {
-      // Token expired or invalid — clear session and redirect
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
 
-    if (status === 403) {
-      // Authenticated but not authorized
-      window.location.href = "/forbidden";
-    }
+    
 
     return Promise.reject(error);
   }

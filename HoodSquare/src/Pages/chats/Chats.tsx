@@ -4,7 +4,7 @@ import { useChat } from './hooks/useChat';
 import type { ChatMessage } from './types/chat.types';
 import './chats.css';
 
-// ─── Avatar helpers ──────────────────────────────────────────────────────────
+
 
 const AVATAR_COLORS = [
   '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -19,7 +19,6 @@ const getAvatarColor = (sender: string): string => {
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 };
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
 
 interface MessageItemProps {
   message: ChatMessage;
@@ -45,7 +44,7 @@ const MessageItem = ({ message }: MessageItemProps) => {
   );
 };
 
-// ─── Main Component ──────────────────────────────────────────────────────────
+
 
 const Chats = () => {
   const [nameInput, setNameInput] = useState('');
@@ -56,13 +55,11 @@ const Chats = () => {
 
   const messageAreaRef = useRef<HTMLUListElement>(null);
 
-  // Auto-scroll to the latest message
   useEffect(() => {
     const el = messageAreaRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages]);
 
-  // Cleanup WebSocket on unmount
   useEffect(() => () => disconnect(), [disconnect]);
 
   const handleJoin = (e: ChangeEvent) => {
@@ -82,7 +79,6 @@ const Chats = () => {
     <div className="chats">
       <Navbar />
 
-      {/* ── Join Screen ── */}
       {!joined && (
         <div id="username-page">
           <div className="username-page-container">
@@ -109,7 +105,7 @@ const Chats = () => {
         </div>
       )}
 
-      {/* ── Chat Screen ── */}
+    
       {joined && (
         <div id="chat-page">
           <div className="chat-container">

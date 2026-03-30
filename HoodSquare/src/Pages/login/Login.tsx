@@ -22,6 +22,8 @@ function Login() {
                myAxios.post("/auth/login", registerForm)
                .then(res=>{
                  console.log("Log in successfull", res.data)
+                 console.log("Full response:", res.data);        // ← what does this print?
+                  console.log("Token value:", res.data.token); 
                   localStorage.setItem("token", res.data.token);
                  navigate("/chats");
                })

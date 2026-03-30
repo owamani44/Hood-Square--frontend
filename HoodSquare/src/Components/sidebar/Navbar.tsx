@@ -3,7 +3,7 @@ import "./navbar.css"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import logo from '../../assets/hood (2).png';
 import { NavLink } from "react-router";
-import { Chat, ContentPaste, Diversity3, Handyman, Help, ReportProblem } from "@mui/icons-material";
+import { Chat, Diversity3, Handyman, Help, ReportProblem } from "@mui/icons-material";
 
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
                 </li>
 
                 <li>
-                    <NavLink to="/connect" className="link">
+                    <NavLink to="/users" className="link">
                     <Diversity3 className="icon"/>
                     
                     </NavLink>

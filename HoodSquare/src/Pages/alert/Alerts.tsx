@@ -4,13 +4,13 @@ import { useAlerts } from './hooks/useAlerts';
 import type { AlertRequestDTO, AlertResponseDTO } from './types/alert.types';
 import './alerts.css';
 
-// ─── Helper ───────────────────────────────────────────────────
+
 const toImageSrc = (base64: string | null): string | null => {
   if (!base64) return null;
   return base64.startsWith('data:') ? base64 : `data:image/jpeg;base64,${base64}`;
 };
 
-// ─── Post Alert Modal ─────────────────────────────────────────
+
 interface PostModalProps {
   onClose: () => void;
   onSubmit: (dto: AlertRequestDTO, image: File | null) => Promise<boolean>;
@@ -102,7 +102,7 @@ const PostModal = ({ onClose, onSubmit, submitting }: PostModalProps) => {
   );
 };
 
-// ─── Alert Card ───────────────────────────────────────────────
+
 interface AlertCardProps {
   alert: AlertResponseDTO;
   index: number;
@@ -130,11 +130,12 @@ const AlertCard = ({ alert, index }: AlertCardProps) => {
         </div>
         <p className="al-card__description">{alert.description}</p>
       </div>
+     
     </article>
   );
 };
 
-// ─── Main Page ────────────────────────────────────────────────
+
 const Alerts = () => {
   const { alerts, loading, error, submitting, postAlert } = useAlerts();
   const [showModal, setShowModal] = useState(false);

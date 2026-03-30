@@ -1,4 +1,4 @@
-/* ─── Reset & Base ─────────────────────────────────────────── */
+
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -10,21 +10,20 @@ html, body, #root {
   flex-direction: column;
   height: 100vh;
   font-weight: 400;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+ 
   font-size: 1rem;
   line-height: 1.58;
   color: #333;
   background-color: #f4f4f4;
 }
 
-/* ─── Utility ───────────────────────────────────────────────── */
 .clearfix::after {
   display: block;
   content: "";
   clear: both;
 }
 
-/* ─── Typography ────────────────────────────────────────────── */
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -38,7 +37,6 @@ a {
   color: #6db33f;
 }
 
-/* ─── Form Elements ─────────────────────────────────────────── */
 .form-control {
   width: 100%;
   min-height: 38px;
@@ -56,7 +54,6 @@ input {
   outline: none;
 }
 
-/* ─── Buttons ───────────────────────────────────────────────── */
 button {
   box-shadow: none;
   border: 1px solid transparent;
@@ -90,9 +87,9 @@ button.accent {
   color: #fff;
 }
 
-/* ─── Username / Join Page ──────────────────────────────────── */
+
 #username-page {
-  flex: 1;                  /* takes remaining height after Navbar */
+  flex: 1;                  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,9 +109,9 @@ button.accent {
   margin-top: 10px;
 }
 
-/* ─── Chat Page ─────────────────────────────────────────────── */
+
 #chat-page {
-  flex: 1;                  /* takes remaining height after Navbar */
+  flex: 1;                  
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -137,7 +134,7 @@ button.accent {
   position: relative;
 }
 
-/* ─── Chat Header ───────────────────────────────────────────── */
+
 .chat-header {
   text-align: center;
   padding: 15px;
@@ -150,7 +147,6 @@ button.accent {
   font-weight: 500;
 }
 
-/* ─── Connecting Banner ─────────────────────────────────────── */
 .connecting {
   padding: 5px;
   text-align: center;
@@ -163,13 +159,12 @@ button.accent {
   color: #e53935;
 }
 
-/* ─── Message List ──────────────────────────────────────────── */
 #chat-page ul {
   list-style-type: none;
   background-color: #fff;
   margin: 0;
   padding: 0 20px;
-  flex: 1;                  /* fills available vertical space */
+  flex: 1;                  
   overflow-y: auto;
 }
 
@@ -184,7 +179,7 @@ button.accent {
   margin: 0;
 }
 
-/* ─── Event Messages (JOIN / LEAVE) ─────────────────────────── */
+
 #chat-page .event-message {
   width: 100%;
   text-align: center;
@@ -193,7 +188,6 @@ button.accent {
   font-size: 14px;
 }
 
-/* ─── Chat Messages ─────────────────────────────────────────── */
 #chat-page .chat-message {
   padding-left: 68px;
   position: relative;
@@ -225,7 +219,6 @@ button.accent {
   color: #43464b;
 }
 
-/* ─── Message Form ──────────────────────────────────────────── */
 #chat-page #messageForm {
   padding: 20px;
   flex-shrink: 0;
@@ -246,7 +239,7 @@ button.accent {
   flex-shrink: 0;
 }
 
-/* ─── Responsive ────────────────────────────────────────────── */
+
 @media screen and (max-width: 730px) {
   #chat-page {
     padding: 10px;

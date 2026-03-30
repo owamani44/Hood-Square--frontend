@@ -4,14 +4,14 @@ import { useLostAndFound } from './hooks/useLostAndFound';
 import type { LostResponseDTO, ClaimRequestDTO } from './types/lost.types';
 import './lostAndFound.css';
 
-// ─── Helpers ─────────────────────────────────────────────────
+
 const toImageSrc = (base64: string | null): string | null => {
   if (!base64) return null;
   // Backend sends raw base64 bytes[] — prefix with data URI
   return base64.startsWith('data:') ? base64 : `data:image/jpeg;base64,${base64}`;
 };
 
-// ─── Claim Modal ──────────────────────────────────────────────
+
 interface ClaimModalProps {
   claimNumber: string;
   onClose: () => void;
@@ -60,7 +60,7 @@ const ClaimModal = ({ claimNumber, onClose, onConfirm, claiming }: ClaimModalPro
   );
 };
 
-// ─── Post Item Modal ──────────────────────────────────────────
+
 interface PostModalProps {
   onClose: () => void;
   onSubmit: (message: string, image: File | null) => Promise<boolean>;
@@ -136,7 +136,7 @@ const PostModal = ({ onClose, onSubmit, submitting }: PostModalProps) => {
   );
 };
 
-// ─── Lost Item Card ───────────────────────────────────────────
+
 interface LostCardProps {
   item: LostResponseDTO;
   index: number;
@@ -187,9 +187,9 @@ const LostCard = ({ item, index, onClaimClick }: LostCardProps) => {
   );
 };
 
-// ─── Main Page ────────────────────────────────────────────────
+
 const LostAndFound = () => {
-  const { items, loading, error, submitting, claiming, postItem, claimItem } =
+  const { items,claims, loading, error, submitting, claiming, postItem, claimItem } =
     useLostAndFound();
 
   const [showPostModal, setShowPostModal] = useState(false);
@@ -201,14 +201,14 @@ const LostAndFound = () => {
   };
 
   const unclaimedItems = items.filter((i) => !i.claimed);
-  const claimedItems   = items.filter((i) => i.claimed);
+ 
 
   return (
     <div className="lf-page">
       <Navbar />
 
       <main className="lf-main">
-        {/* Hero */}
+      
         <div className="lf-hero">
           <div className="lf-hero__text">
             <h1 className="lf-hero__title">Lost &amp; Found</h1>
@@ -223,7 +223,7 @@ const LostAndFound = () => {
 
         {error && <p className="lf-error">{error}</p>}
 
-        {/* Unclaimed section */}
+       
         <section className="lf-section">
           <h2 className="lf-section__title">
             <span className="lf-dot lf-dot--red" /> Unclaimed Items
@@ -252,27 +252,29 @@ const LostAndFound = () => {
           )}
         </section>
 
-        {/* Claimed section */}
-        {claimedItems.length > 0 && (
-          <section className="lf-section lf-section--claimed">
-            <h2 className="lf-section__title">
-              <span className="lf-dot lf-dot--green" /> Claimed Items
-              <span className="lf-count">{claimedItems.length}</span>
-            </h2>
-            <div className="lf-claims-list">
-              {claimedItems.map((item) => (
-                <div key={item.id} className="lf-claims-row">
-                  <span className="lf-claims-row__num">#{item.claimNumber}</span>
-                  <span className="lf-claims-row__msg">{item.message}</span>
-                  <span className="lf-badge lf-badge--claimed">Claimed ✓</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+       
+       {claims.length > 0 && (
+  <section className="lf-section lf-section--claimed">
+    <h2 className="lf-section__title">
+      <span className="lf-dot lf-dot--green" /> Claimed Items
+      <span className="lf-count">{claims.length}</span>
+    </h2>
+    <div className="lf-claims-list">
+      {claims.map((claim) => (
+        <div key={claim.claimNumber} className="lf-claims-row">
+          <span className="lf-claims-row__num">#{claim.claimNumber}</span>
+          <span className="lf-claims-row__claimed-by">
+            Claimed by <strong>@{claim.username}</strong>
+          </span>
+          <span className="lf-badge lf-badge--claimed">Claimed ✓</span>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
       </main>
 
-      {/* Modals */}
+      
       {showPostModal && (
         <PostModal
           onClose={() => setShowPostModal(false)}

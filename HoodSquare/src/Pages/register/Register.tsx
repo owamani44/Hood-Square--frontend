@@ -1,6 +1,6 @@
 import "./register.css"
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { myAxios } from "../../api";
 import VisibilityOffIconOutlined from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityIconOutlined from '@mui/icons-material/VisibilityOutlined';
@@ -9,6 +9,7 @@ import logo from '../../assets/hood.png';
 
 const Register = () => {
     const currentYear = new Date().getFullYear();
+    const navigate=useNavigate();
     const [registerForm, setRegisterForm] = useState({
              fullName: "",
               username: "",
@@ -24,6 +25,7 @@ const Register = () => {
              myAxios.post("/auth/register", registerForm)
              .then(res=>{
                console.log("Registration successfull", res.data)
+               navigate("/");
              })
              .catch(err=>{
                console.error("Error registering", err) 

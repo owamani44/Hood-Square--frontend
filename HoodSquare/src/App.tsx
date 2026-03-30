@@ -2,12 +2,12 @@ import { BrowserRouter,Routes,Route } from "react-router";
 import Login from "./Pages/login/Login";
 import Register from "./Pages/register/Register";
 import Chats from "./Pages/chats/Chats";
-import Skills from "./Pages/services/Skills";
-
+import Skills from "./Pages/skills/Skills";
+import Users from "./Pages/users/Users";
 import Alerts from "./Pages/alert/Alerts";
 import Profile from "./Pages/profile/Profile";
 import LostAndFound from "./Pages/lostAndFound/LostAndFound";
-import Connect from "./Pages/connect/Connect";
+
 
 function App() {
   
@@ -20,7 +20,7 @@ function App() {
           <Route index element={<Login/>}/>
           <Route path="signup" element={<Register/>}/>
           <Route path="chats" element={<Chats/>}/>
-          <Route path="/connect" element={<Connect/>}/>
+         <Route path="users" element={<Users/>}/>
           <Route path="services" element={<Skills/>}/>
           <Route path="lost" element={<LostAndFound/>}/>
           <Route path="alerts" element={<Alerts/>}/>
