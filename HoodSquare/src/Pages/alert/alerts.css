@@ -3,7 +3,7 @@
   --al-bg:        #fdfcfb;
   --al-surface:   #ffffff;
   --al-border:    #ebe7e0;
-  --al-ink:       #1a1614;
+  --al-ink:       #ededed;
   --al-muted:     #857f78;
   --al-alert:     #d4380d;
   --al-alert-dim: #a8300a;
@@ -55,7 +55,7 @@
   letter-spacing: -0.01em;
   margin: 0 0 10px;
   line-height: 0.95;
-  color: var(--al-ink);
+  color: black;
 }
 
 .al-hero__sub {
@@ -170,14 +170,23 @@
 
 .al-card__description {
   font-size: 0.91rem;
-  color: var(--al-ink);
+  color: black;
   margin: 0;
   line-height: 1.6;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
+.al-card__date {
+  font-size: 0.75rem;
+  color:red;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  padding-top: 2cqb;
+  border-top: 1px solid var(--al-border);
+  letter-spacing: 0.02em;
+  align-items: center;
+}
 
 .al-card--skeleton {
   height: 260px;

@@ -10,6 +10,18 @@ const toImageSrc = (base64: string | null): string | null => {
   return base64.startsWith('data:') ? base64 : `data:image/jpeg;base64,${base64}`;
 };
 
+const formatDate = (dateStr: string | null): string => {
+  if (!dateStr) return 'Unknown date';
+  const date = new Date(dateStr);
+  return date.toLocaleString('en-UG', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
 
 interface PostModalProps {
   onClose: () => void;
@@ -130,6 +142,9 @@ const AlertCard = ({ alert, index }: AlertCardProps) => {
         </div>
         <p className="al-card__description">{alert.description}</p>
       </div>
+       <div className="al-card__date">
+          {formatDate(alert.createdAt)}
+        </div>
      
     </article>
   );
