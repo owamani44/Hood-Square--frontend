@@ -329,7 +329,7 @@
   border-radius: 6px;
   padding: 10px 14px;
   font-size: 0.95rem;
-  color: var(--ink);
+  color: black;
   background: var(--cream);
   outline: none;
   transition: border-color 0.18s;

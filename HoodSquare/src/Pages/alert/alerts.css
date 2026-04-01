@@ -280,6 +280,7 @@
 .al-modal__header h2 {
   font-size: 1.7rem;
   font-weight: 800;
+  color: #d4380d;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   margin: 0;
@@ -326,7 +327,7 @@
   border-radius: 6px;
   padding: 10px 14px;
   font-size: 0.94rem;
-  color: var(--al-ink);
+  color: black;
   background: var(--al-bg);
   outline: none;
   transition: border-color 0.18s;
