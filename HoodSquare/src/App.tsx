@@ -1,4 +1,4 @@
-import { BrowserRouter,Routes,Route } from "react-router";
+import { Routes,Route, HashRouter } from "react-router";
 import Login from "./Pages/login/Login";
 import Register from "./Pages/register/Register";
 import Chats from "./Pages/chats/Chats";
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-       <BrowserRouter>
+       <HashRouter>
         <Routes>
           <Route path="/">
           <Route index element={<Login/>}/>
@@ -27,7 +27,7 @@ function App() {
           <Route path="profile" element={<Profile/> }/>
           </Route> 
         </Routes>
-        </BrowserRouter>
+        </HashRouter>
         
     </>
   )
