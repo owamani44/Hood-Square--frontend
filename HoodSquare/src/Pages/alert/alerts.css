@@ -317,7 +317,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--al-muted);
+  color:black;
 }
 
 .al-form__group input,

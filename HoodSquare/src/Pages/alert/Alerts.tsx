@@ -13,7 +13,7 @@ const toImageSrc = (base64: string | null): string | null => {
 const formatDate = (dateStr: string | null): string => {
   if (!dateStr) return 'Unknown date';
   const date = new Date(dateStr);
-  return date.toLocaleString('en-UG', {
+  return date.toLocaleString(undefined, {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
